@@ -1,0 +1,11 @@
+{
+  "main": {},
+  "error": {
+    "null": "Required field",
+    "invalid": "Incorrect value",
+    "not_found": "Not found",
+    "not_active": "Not active",
+    "does_not_match": "Does not match",
+    "failed_to_create_token": "Failed to create token"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "main": {
+    "Loading": "Загрузка",
+    "Refresh": "Обновить",
+    "Submit": "Отправить",
+    "Sign Up": "Регистрация",
+    "Sign In": "Войти",
+    "Sign Out": "Выйти",
+    "Profile": "Профиль",
+    "Password": "Пароль",
+    "Error": "Ошибка",
+    "No account yet": "Аккаунта пока нет",
+    "Already have an account": "Уже есть аккаунт",
+    "Home page": "Домашняя страница"
+  },
+  "error": {
+    "null": "Обязательное поле",
+    "invalid": "Неверное значение",
+    "exist": "Существует",
+    "not_found": "Не найдено",
+    "not_active": "Не активно",
+    "does_not_match": "Не совпадает",
+    "Request failed": "Запрос не выполнен",
+    "This page could not be found": "Страница не найдена",
+    "failed_to_create_token": "Не удалось создать токен"
+  }
+}
