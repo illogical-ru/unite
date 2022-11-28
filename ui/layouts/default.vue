@@ -14,10 +14,18 @@
           v-list-item-content
             v-list-item-title(v-text='item.title')
     v-app-bar(fixed app)
-      v-app-bar-nav-icon(@click.stop='drawer = !drawer' :disabled='!isOk')
+      v-app-bar-nav-icon(
+        @click.stop='drawer = !drawer'
+        :disabled='!isOk'
+      )
       v-toolbar-title(v-text='title')
       v-spacer
-      v-btn(v-if='$store.getters.isGuest' icon to='signin' :disabled='!isOk')
+      v-btn(
+        v-if='$store.getters.isGuest'
+        icon
+        to='signin'
+        :disabled='!isOk'
+      )
         v-icon mdi-account-circle-outline
       v-menu(v-else v-model='userMenu')
         template(v-slot:activator='{ on, attrs }')
@@ -28,6 +36,10 @@
             v-list-item
               v-list-item-avatar
                 v-avatar(color='grey')
+                  img(
+                    v-if='$store.state.user.avatar'
+                    :src='$store.state.user.avatar'
+                  )
               v-list-item-content
                 v-list-item-title {{ $store.state.user.email }}
           v-divider
@@ -46,12 +58,33 @@
       v-container
         v-overlay(v-if='isLoading' value='1')
           v-progress-circular(indeterminate size='64')
-        v-alert(v-if='fatal' prominent dense type='error' border='left')
+        v-alert(
+          v-if='fatal'
+          prominent
+          dense
+          type='error'
+          border='left'
+        )
           v-row(align='center')
             v-col.grow {{ $dict.trError(fatal) }}
             v-col.shrink
               v-btn(text @click='getEnv') {{ $dict.tr('Refresh') }}
-        nuxt(v-else)
+        div(v-show='isOk')
+          nuxt
+    v-snackbar(
+      v-model='notify.flag'
+      tile
+      :color='notify.type == "error" ? "red" : ""'
+    )
+      | {{ $dict.tr(notify.message, notify.type) }}
+      template(v-slot:action='{ attrs }')
+        v-btn(
+          text
+          v-bind='attrs'
+          x-small
+          @click='notify.flag = false'
+        )
+          | {{ $dict.tr('Close') }}
 </template>
 
 <script>
@@ -63,13 +96,22 @@ export default {
       userMenu: false,
       userItems: [
         {
+          icon: 'mdi-badge-account-outline',
+          text: 'Profile',
+          to: 'profile'
+        },
+        {
           icon: 'mdi-logout',
           text: 'Sign Out',
           to: 'signout'
         }
       ],
       isLoading: true,
-      fatal: undefined
+      fatal: undefined,
+      notify: {
+        flag: false,
+        message: undefined
+      }
     }
   },
   computed: {
@@ -81,6 +123,14 @@ export default {
     }
   },
   watch: {
+    '$store.state.notify' (data) {
+      if (data && data.message) {
+        this.notify.type = data.type
+        this.notify.message = data.message
+        this.notify.flag = true
+        this.$store.commit('setNotify', undefined)
+      }
+    },
     '$store.getters.isGuest' () {
       this.init()
     }
@@ -90,14 +140,10 @@ export default {
   },
   methods: {
     init () {
-      this.$axios.interceptors.request.use((config) => {
-        if (this.$store.state.user.token) {
-          config.headers.Authorization = `Bearer ${this.$store.state.user.token}`
-        } else {
-          delete config.headers.Authorization
-        }
-        return config
-      })
+      this.$axios.setToken(
+        this.$store.state.user.token,
+        'Bearer'
+      )
       this.getEnv()
     },
     getEnv () {

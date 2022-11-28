@@ -11,6 +11,10 @@ class User {
 
     public static function signup () {
 
+        if (App::user()) {
+            return 403;
+        }
+
         $args   = App::args();
 
         $user   = new ModelUser;
@@ -31,7 +35,11 @@ class User {
         App::render(['json' => $result]);
     }
 
-    public function signin () {
+    public static function signin () {
+
+        if (App::user()) {
+            return 403;
+        }
 
         $args   = App::args();
 
@@ -71,14 +79,18 @@ class User {
                 }
             }
         }
-        if ( $errors) {
+        if ($errors) {
             $result['errors'] = $errors;
         }
 
         App::render(['json' => $result]);
     }
 
-    public function signout () {
+    public static function signout () {
+
+        if (!App::user()) {
+            return 401;
+        }
 
         $token  = App::token();
 

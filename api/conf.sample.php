@@ -6,12 +6,14 @@ return [
 
     'timezone' => 'UTC',
 
+    'home'     => NULL, // .../unite/api/pub
+    'host'     => NULL, // api.unite
+    'pub'      => '/',
+    'origin'   => NULL, // http://localhost:3000
+
     'safe'     => [
-        'algo'  => 'md5',
         'sign'  => '0123456789ABCDEF0123456789ABCDEF',
     ],
-
-    'origin'   => 'http://localhost:3000',
 
     'storage'  => [
         [

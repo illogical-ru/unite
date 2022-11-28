@@ -3,6 +3,7 @@
     "Loading": "Загрузка",
     "Refresh": "Обновить",
     "Submit": "Отправить",
+    "Close": "Закрыть",
     "Sign Up": "Регистрация",
     "Sign In": "Войти",
     "Sign Out": "Выйти",
@@ -22,6 +23,9 @@
     "does_not_match": "Не совпадает",
     "Request failed": "Запрос не выполнен",
     "This page could not be found": "Страница не найдена",
-    "failed_to_create_token": "Не удалось создать токен"
+    "failed_to_create_token": "Не удалось создать токен",
+    "avatar_null": "Выберите изображение",
+    "avatar_invalid": "Неверный формат изображения",
+    "avatar_internal": "Не удалось загрузить изображение"
   }
 }

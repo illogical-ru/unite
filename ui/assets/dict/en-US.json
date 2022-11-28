@@ -6,6 +6,9 @@
     "not_found": "Not found",
     "not_active": "Not active",
     "does_not_match": "Does not match",
-    "failed_to_create_token": "Failed to create token"
+    "failed_to_create_token": "Failed to create token",
+    "avatar_null": "Choose an image",
+    "avatar_invalid": "Invalid image format",
+    "avatar_internal": "Failed to load image"
   }
 }

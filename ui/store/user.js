@@ -1,5 +1,6 @@
 export const state = () => ({
   email: undefined,
+  avatar: undefined,
   token: process.client &&
     window.localStorage &&
     localStorage.getItem('token')
@@ -22,6 +23,28 @@ export const actions = {
       commit('setToken', undefined)
     }
     return response
+  },
+
+  async setAvatar ({ commit }, data) {
+    const formData = new FormData()
+    formData.append('avatar', data)
+
+    const response = await this.$axios.$post(
+      'avatar.json',
+      formData,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    )
+    if (response.success) {
+      commit('setAvatar', response.avatar)
+    }
+    return response
+  },
+  async delAvatar ({ commit }) {
+    const response = await this.$axios.$delete('avatar.json')
+    if (response.success) {
+      commit('setAvatar', undefined)
+    }
+    return response
   }
 }
 
@@ -36,7 +59,10 @@ export const mutations = {
       }
     }
   },
-  setEmail (state, email) {
-    state.email = email
+  setEmail (state, val) {
+    state.email = val
+  },
+  setAvatar (state, val) {
+    state.avatar = val
   }
 }

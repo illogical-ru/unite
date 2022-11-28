@@ -5,6 +5,7 @@ namespace Model;
 use App;
 use Lava\Model\SQL;
 use Model\Token;
+use Model\Upload;
 
 
 class User extends SQL {
@@ -64,6 +65,16 @@ class User extends SQL {
 
     public function tokens () {
         return $this->has_many(Token::classname());
+    }
+
+    public function avatar () {
+        return $this
+            ->has_many(Upload::classname())
+            ->filter([
+                'type'      => 'avatar',
+                'is_active' =>  TRUE,
+            ])
+            ->one();
     }
 
     // --- func ------------------------------------------------------------- //

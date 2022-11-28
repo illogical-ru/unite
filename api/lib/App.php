@@ -61,6 +61,12 @@ class App extends Lava\App {
 
         return self::$user;
     }
+    public static function user_id () {
+
+        $user = self::user();
+
+        return $user ? $user->id : NULL;
+    }
 }
 
 ?>
