@@ -1,7 +1,6 @@
 <template lang="pug">
   v-card.mx-auto(
     v-show='$store.getters.isGuest'
-    color='grey darken-4'
     style='max-width: 320px'
   )
     v-card-title

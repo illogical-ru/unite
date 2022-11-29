@@ -33,7 +33,7 @@
         v-btn(
           disabled
           type='submit'
-          color='blue-grey'
+          color='primary'
         )
           | {{ $dict.tr('Submit') }}
 </template>

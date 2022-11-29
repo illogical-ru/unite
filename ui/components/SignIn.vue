@@ -24,7 +24,7 @@
       type='submit'
       :disabled='!isValid'
       :loading='isLoading'
-      color='blue-grey'
+      color='primary'
       block
     )
       | {{ $dict.tr('Submit') }}

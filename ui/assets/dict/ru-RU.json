@@ -9,10 +9,15 @@
     "Sign Out": "Выйти",
     "Profile": "Профиль",
     "Password": "Пароль",
+    "Theme": "Тема",
     "Error": "Ошибка",
     "No account yet": "Аккаунта пока нет",
     "Already have an account": "Уже есть аккаунт",
     "Home page": "Домашняя страница"
+  },
+  "theme": {
+    "Light": "Светлая",
+    "Dark": "Тёмная"
   },
   "error": {
     "null": "Обязательное поле",

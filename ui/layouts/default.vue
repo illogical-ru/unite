@@ -13,6 +13,17 @@
             v-icon {{ item.icon }}
           v-list-item-content
             v-list-item-title(v-text='item.title')
+      template(v-slot:append)
+        v-select(
+          v-model='theme'
+          :items='normThemes'
+          item-text='name'
+          item-value='id'
+          filled
+          dense
+          :label='$dict.tr("Theme")'
+          @change='setTheme'
+        )
     v-app-bar(fixed app)
       v-app-bar-nav-icon(
         @click.stop='drawer = !drawer'
@@ -91,8 +102,13 @@
 export default {
   data () {
     return {
+
       drawer: false,
       items: [],
+
+      theme: undefined,
+      themes: ['Dark', 'Light'],
+
       userMenu: false,
       userItems: [
         {
@@ -106,8 +122,11 @@ export default {
           to: 'signout'
         }
       ],
+
       isLoading: true,
+
       fatal: undefined,
+
       notify: {
         flag: false,
         message: undefined
@@ -120,6 +139,12 @@ export default {
     },
     title () {
       return this.$root.$options.head.title
+    },
+    normThemes () {
+      return this.themes.map(val => ({
+        id: val,
+        name: this.$dict.tr(val, 'theme')
+      }))
     }
   },
   watch: {
@@ -133,9 +158,13 @@ export default {
     },
     '$store.getters.isGuest' () {
       this.init()
+    },
+    theme (val) {
+      this.$vuetify.theme.dark = val === 'Dark'
     }
   },
   mounted () {
+    this.theme = this.$store.state.theme || this.themes[0]
     this.init()
   },
   methods: {
@@ -157,6 +186,9 @@ export default {
         .then(() => {
           this.isLoading = false
         })
+    },
+    setTheme (theme) {
+      this.$store.commit('setTheme', theme)
     }
   }
 }

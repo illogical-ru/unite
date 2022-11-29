@@ -1,4 +1,7 @@
 export const state = () => ({
+  theme: process.client &&
+    window.localStorage &&
+    localStorage.getItem('theme'),
   notify: undefined
 })
 
@@ -23,6 +26,13 @@ export const mutations = {
       type: 'error',
       message: error
     })
+  },
+
+  setTheme (state, theme) {
+    state.theme = theme
+    if (process.client && window.localStorage) {
+      localStorage.setItem('theme', theme)
+    }
   }
 }
 
